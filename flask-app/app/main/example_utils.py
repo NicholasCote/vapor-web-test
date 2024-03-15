@@ -7,7 +7,7 @@
 #
 ###########################################################
 
-import importlib
+import importlib.util
 vapor_spec = importlib.util.find_spec("vapor")
 found = vapor_spec is not None
 

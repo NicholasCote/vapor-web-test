@@ -1,11 +1,24 @@
-FROM docker.io/mambaorg/micromamba:latest
+FROM mambaorg/micromamba:jammy-cuda-12.2.2
 
-COPY env.yaml /home/mambauser
+USER root
 
-ADD flask-app /home/mambauser/flask-app
+RUN apt-get update --yes && \
+    # - apt-get upgrade is run to patch known vulnerabilities in apt-get packages as
+    #   the ubuntu base image is rebuilt too seldom sometimes (less than once a month)
+    apt-get upgrade --yes && \
+    apt-get install --yes --no-install-recommends \
+    mesa-common-dev \
+    libglu1-mesa-dev \
+    libglvnd-dev
 
-WORKDIR /home/mambauser
+RUN mkdir /app
 
-RUN micromamba env create -f env.yaml
+COPY env.yaml /app
 
-CMD ["python3", "flask-app/wsgi.py"]
+ADD flask-app /app/flask-app/
+
+RUN micromamba env create -f /app/env.yaml
+
+WORKDIR /app/flask-app
+
+CMD ["python", "wsgi.py"]
