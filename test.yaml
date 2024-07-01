@@ -7,8 +7,10 @@ spec:
  runtimeClassName: nvidia
  containers:
    - name: cuda-container
-     image: nvidia/cuda:11.6.2-base-ubuntu20.04
-     command: ["nvidia-smi"]
+     image: docker.io/ncote/osgl-test:latest
      resources:
        limits:
          nvidia.com/gpu: 1 # requesting 1 GPU
+     env:
+       - name: NVIDIA_DRIVER_CAPABILITIES
+         value: 'all'

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: osgl-test
-  namespace: ncote
+  namespace: ncote-test
   labels:
     app: osgl-test
 spec:
