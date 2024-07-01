@@ -26,3 +26,5 @@ spec:
           env:
             - name: NVIDIA_DRIVER_CAPABILITIES
               value: 'all'
+            - name: DISPLAY
+              value: ":0"
