@@ -10,11 +10,12 @@ RUN apt-get update --yes && \
     curl \
     mesa-common-dev \
     libglu1-mesa-dev \
-    libglvnd-dev
+    libglvnd-dev \
+    wget
 
-RUN /bin/bash <(curl -L micro.mamba.pm/install.sh)
+RUN curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba
 
 RUN micromamba install -n base conda-forge::libcxx \
     ncar-vapor::osgl
 
-ENTRYPOINT [ "/opt/conda/bin/osgl_test_version" ]
+ENTRYPOINT [ "/root/micromamba/bin/osgl_test_version" ]
