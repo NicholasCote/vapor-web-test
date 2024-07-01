@@ -1,4 +1,4 @@
-FROM docker.io/mambaorg/micromamba:jammy-cuda-12.2.2
+FROM docker.io/mambaorg/micromamba:jammy-cuda-12.4.1
 
 USER root
 
@@ -11,14 +11,9 @@ RUN apt-get update --yes && \
     libglu1-mesa-dev \
     libglvnd-dev
 
-RUN mkdir /app
+USER mambauser
 
-COPY env.yaml /app
+RUN micromamba install -n base conda-forge::libcxx \
+    ncar-vapor::osgl
 
-ADD flask-app /app/flask-app/
-
-RUN micromamba env create -f /app/env.yaml
-
-WORKDIR /app/flask-app
-
-CMD ["python", "wsgi.py"]
+ENTRYPOINT [ "/opt/conda/bin/osgl_test_version" ]

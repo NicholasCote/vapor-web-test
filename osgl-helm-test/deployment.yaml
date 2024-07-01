@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: osgl-test
+  namespace: ncote
+  labels:
+    app: osgl-test
+spec:
+  selector:
+    matchLabels:
+      app: osgl-test
+  template:
+    metadata:
+      labels:
+        app: osgl-test
+    spec:
+      runtimeClassName: nvidia
+      containers:
+        - name: osgl-test
+          image: docker.io/ncote/osgl-test:latest
+          imagePullPolicy: Always
+          resources:
+            limits:
+              memory: 1G
+              cpu: 1
+          env:
+            - name: NVIDIA_DRIVER_CAPABILITIES
+              value: 'all'
