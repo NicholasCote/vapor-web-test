@@ -7,10 +7,12 @@ spec:
  runtimeClassName: nvidia
  containers:
    - name: cuda-container
-     image: docker.io/ncote/osgl-test:latest
+     image: docker.io/ncote/osgl-test:working
      resources:
        limits:
          nvidia.com/gpu: 1 # requesting 1 GPU
      env:
        - name: NVIDIA_DRIVER_CAPABILITIES
+         value: 'all'
+       - name: NVIDIA_VISIBLE_DEVICES
          value: 'all'

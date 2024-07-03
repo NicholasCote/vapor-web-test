@@ -18,4 +18,5 @@ RUN curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bi
 RUN micromamba install -n base conda-forge::libcxx \
     ncar-vapor::osgl
 
+#CMD ["/bin/bash","-c","exec /bin/bash -c 'trap : TERM INT; sleep infinity & wait'" ]
 ENTRYPOINT [ "/root/micromamba/bin/osgl_test_version" ]

@@ -1,0 +1,10 @@
+replicaCount: 1
+
+webapp:
+  name: vapor-web-test
+  group: vapor-web-test
+  container: 
+    image: docker.io/ncote/vapor-flask-test:2024-07-02
+    port: 5000
+    memory: 2G
+    cpu: 1
